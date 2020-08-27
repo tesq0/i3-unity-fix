@@ -15,7 +15,6 @@ def main():
     i3 = Connection()
     handler = I3UnityFix()
     i3.on(Event.WINDOW_FOCUS, handler.on_focus)
-    i3.on(Event.WORKSPACE, handler.on_workspace)
     i3.main()
     
 if __name__ == "__main__":
