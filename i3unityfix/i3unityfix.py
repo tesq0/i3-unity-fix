@@ -32,7 +32,10 @@ class I3UnityFix(object):
         windows = list(workspace.leaves())
         windows = list(filter(window_is_unity, windows))
 
-        previously_focused_window = find_focused_window(workspace)
+        previously_focused_window = None
+
+        if len(windows) > 1:
+            previously_focused_window = find_focused_window(workspace)
 
         for window in windows:
             window.command("fullscreen enable")
@@ -40,7 +43,7 @@ class I3UnityFix(object):
             self.keyboard.press(Key.esc)
             self.keyboard.release(Key.esc)
 
-        if previously_focused_window is not None:
+        if previously_focused_window is not None and previously_focused_window.window_class == "Unity":
             previously_focused_window.command("focus")
         
 	
