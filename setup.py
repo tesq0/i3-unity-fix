@@ -12,7 +12,7 @@ setup(
     description="Fixes unity3d editor repaint issue when switching workspaces in the i3 window manager",
     long_description=open('README.md').read(),
     long_description_content_type='text/x-md',
-    license="GPLv3",
+    license="MIT",
     keywords="i3 unity3d",
     url="https://github.com/tesq0/i3-unity-fix",
     entry_points={
