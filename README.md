@@ -9,6 +9,7 @@ This script does exactly that.
 # Dependencies
 
 i3ipc
+pynput
 
 # Usage
 

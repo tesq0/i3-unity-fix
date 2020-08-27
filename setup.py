@@ -19,7 +19,7 @@ setup(
         'console_scripts': ['i3-unity-fix = i3unityfix.i3unityfix:main']
     },
     install_requires=[
-        "i3ipc"
+        "i3ipc", "pynput"
     ],
     data_files=[
         ('share/man/man1', ['i3-unity-fix.1'] if os.path.exists('i3-unity-fix.1') else []),
