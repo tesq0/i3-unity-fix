@@ -4,7 +4,7 @@ import os
 
 setup(
     name='i3-unity-fix',
-    version='1',
+    version='0.1',
     packages=['i3unityfix'],
     package_data={},
     author="Mikołaj Gałkowski",
