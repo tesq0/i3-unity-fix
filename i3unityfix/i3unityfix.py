@@ -40,8 +40,8 @@ class I3UnityFix(object):
         for window in windows:
             window.command("fullscreen enable")
             window.command("fullscreen disable")
-            self.keyboard.press(Key.esc)
-            self.keyboard.release(Key.esc)
+            self.keyboard.press(Key.home)
+            self.keyboard.release(Key.home)
 
         if previously_focused_window is not None and previously_focused_window.window_class == "Unity":
             previously_focused_window.command("focus")
