@@ -9,6 +9,18 @@ def window_is_unity(window):
         return False
     return window.window_class == "Unity"
 
+def find_focused_window(container):
+
+    while container:
+        if not hasattr(container, 'focus') or not container.focus:
+            break
+
+        container_id = container.focus[0]
+        container = container.find_by_id(container_id)
+    
+    return container;
+        
+
 class I3UnityFix(object):
 
     def __init__(self):
@@ -18,13 +30,20 @@ class I3UnityFix(object):
         workspace = event.current
 
         windows = list(workspace.leaves())
-        windows = filter(window_is_unity, windows)
+        windows = list(filter(window_is_unity, windows))
+
+        previously_focused_window = find_focused_window(workspace)
 
         for window in windows:
             window.command("fullscreen enable")
             window.command("fullscreen disable")
             self.keyboard.press(Key.esc)
             self.keyboard.release(Key.esc)
+
+        if previously_focused_window is not None:
+            previously_focused_window.command("focus")
+        
+	
             
 def main():
     i3 = Connection()
