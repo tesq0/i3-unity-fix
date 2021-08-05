@@ -33,22 +33,24 @@ class I3UnityFix(object):
             
         workspace = event.current
 
-        windows = list(workspace.leaves())
-        windows = list(filter(window_is_unity, windows))
+        # Same screen check
+        if event.old.rect.x == event.current.rect.x:
+            windows = list(workspace.leaves())
+            windows = list(filter(window_is_unity, windows))
 
-        previously_focused_window = None
+            previously_focused_window = None
 
-        if len(windows) > 1:
-            previously_focused_window = find_focused_window(workspace)
+            if len(windows) > 1:
+                previously_focused_window = find_focused_window(workspace)
 
-        for window in windows:
-            window.command("fullscreen enable")
-            window.command("fullscreen disable")
-            self.keyboard.press(Key.home)
-            self.keyboard.release(Key.home)
+            for window in windows:
+                window.command("fullscreen enable")
+                window.command("fullscreen disable")
+                self.keyboard.press(Key.home)
+                self.keyboard.release(Key.home)
 
-        if previously_focused_window is not None and previously_focused_window.window_class == "Unity":
-            previously_focused_window.command("focus")
+            if previously_focused_window is not None and previously_focused_window.window_class == "Unity":
+                previously_focused_window.command("focus")
         
 	
             
