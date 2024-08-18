@@ -27,9 +27,6 @@ class I3UnityFix(object):
         self.keyboard = Controller()
         
     def on_workspace_focus(self, i3, event):
-
-        if event.old.name == "__i3_scratch":
-            return
             
         workspace = event.current
 
