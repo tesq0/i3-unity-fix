@@ -4,6 +4,8 @@ from i3ipc import Connection, Event
 from pynput.keyboard import Key, Controller
 import subprocess
 
+i3 = None
+
 def window_is_unity(window):
     if (window is None):
         return False
@@ -32,6 +34,18 @@ class I3UnityFix(object):
 
         # Same screen check
         if event.old.rect.x == event.current.rect.x:
+            self.fix_if_necessary(workspace)
+
+    def get_current_workspace(self):
+        return tree.find_focused().workspace()
+
+    def on_window_event(self, i3, event):
+        tree = i3.get_tree()
+        focused = tree.find_focused()
+        if event.change == "move" and event.container.scratchpad_state in ('fresh', 'changed') and focused.window_class == 'Unity':
+            self.fix_if_necessary(focused.workspace())
+
+    def fix_if_necessary(self, workspace):
             windows = list(workspace.leaves())
             windows = list(filter(window_is_unity, windows))
 
@@ -52,9 +66,11 @@ class I3UnityFix(object):
 	
             
 def main():
+    global i3
     i3 = Connection()
     handler = I3UnityFix()
     i3.on(Event.WORKSPACE_FOCUS, handler.on_workspace_focus)
+    i3.on(Event.WINDOW, handler.on_window_event)
     i3.main()
     
 if __name__ == "__main__":
