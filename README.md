@@ -1,5 +1,3 @@
-# NOTE: this problem seems to be gone in unity-editor version >= 2020.1.3f1
-
 Fixes unity3d editor repaint issue when switching workspaces in the i3 window manager
 
 # About
